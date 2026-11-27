@@ -1,0 +1,18 @@
+{
+  "name": "JointNexa — Joint Support Formula",
+  "short_name": "JointNexa",
+  "description": "JointNexa is a joint support capsule with eight named ingredients and no proprietary blend. Every amount, price and the 60-day guarantee.",
+  "lang": "en-US",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "id": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f7f8fb",
+  "theme_color": "#1a2240",
+  "categories": ["health", "lifestyle", "shopping"],
+  "icons": [
+    { "src": "/images/favicon.png", "sizes": "any", "type": "image/png", "purpose": "any" }
+  ]
+}

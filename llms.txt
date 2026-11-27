@@ -1,0 +1,45 @@
+# JointNexa
+
+> JointNexa is a joint support dietary supplement in vegetable capsules, taken as two capsules once daily before a meal with a glass of water. Its distinguishing feature is that it uses no proprietary blend: an individual milligram amount is published beside each of eight ingredients. A bottle holds 60 capsules, a 30-day supply. Packs cost $158, $207 and $294 for two, three and six bottles, all with a 60-day money-back guarantee. The label declares crustacean shellfish (crayfish) as an allergen.
+
+This page is organised formula-first. The complete Supplement Facts panel appears before any sales argument, as searchable text rather than a photograph, followed by a plain-English account of what each of the eight ingredients actually is. The shellfish allergen declaration is given a section of its own because it is the most safety-relevant line on the label and the easiest one to scroll past. Commercial figures were read from the official site on 27 November 2026, and the per-bottle prices and discount percentages were recalculated independently rather than copied — in this case every figure reconciled exactly, which is reported as a finding rather than assumed. Written for readers in the United States. Order links carry an affiliate tag: the commission comes out of the seller's margin and the buyer's price is unchanged. Nothing is scored, starred or ranked, and the structured data contains no rating object.
+
+## The formula
+
+- [The Supplement Facts panel in full](https://jointnexa-us.vercel.app/#formula): Serving size two vegetable capsules, thirty servings a bottle. Glucosamine sulfate 1000 mg, boswellia extract 133.3 mg, chondroitin sulfate 100 mg, turmeric 100 mg, quercetin 16.7 mg, methionine 16.7 mg, MSM 16.7 mg, bromelain 16.7 mg. Other ingredients: cellulose capsule and rice flour.
+- [What each ingredient is](https://jointnexa-us.vercel.app/#eight): Four sulfur sources — glucosamine sulfate, chondroitin sulfate, MSM, methionine — and four botanicals: boswellia resin, turmeric root, quercetin from Sophora japonica bud, bromelain from pineapple stem.
+- [Why "no proprietary blend" matters](https://jointnexa-us.vercel.app/#noblend): A blend publishes one combined weight and keeps the individual figures private, so it cannot be compared or checked against a trial. This one publishes all eight.
+- [JointNexa dosage](https://jointnexa-us.vercel.app/#taking): Two capsules once daily before a meal with water. No split dosing, no fasting window. Sixty capsules is thirty days.
+- [The shellfish allergen](https://jointnexa-us.vercel.app/#allergen): The panel declares "contains crustacean shellfish (crayfish)" as an ingredient, not a facility warning. Glucosamine is the largest component at 1000 mg.
+
+## Cost and terms
+
+- [What each pack costs](https://jointnexa-us.vercel.app/#prices): $158 for two bottles against $358, $207 for three against $537, $294 for six against $1074. Per bottle that is $79, $69 and $49, and every figure divides exactly.
+- [The bundled guides](https://jointnexa-us.vercel.app/#gifts): Three digital guides with a combined listed value of $113, included with the three- and six-bottle packs only. Values are seller-stated.
+- [Shipping](https://jointnexa-us.vercel.app/#delivery): Free US shipping on three and six bottles; added at checkout on two. Processed in 1–2 business days, delivered in 5–7, tracking emailed.
+- [The 60-day guarantee](https://jointnexa-us.vercel.app/#guarantee): Money back on every pack, handled through the BuyGoods order lookup rather than the brand directly.
+- [Four things to do when ordering](https://jointnexa-us.vercel.app/#ordering): Factor shipping into the comparison, read the post-checkout screen because an optional auto-ship offer may appear, check the safety seal, and set a reminder for day fifty.
+
+## Evidence and safety
+
+- [What US health bodies say](https://jointnexa-us.vercel.app/#evidence): NCCIH states it is still uncertain whether glucosamine and chondroitin help knee osteoarthritis and that expert evaluations have reached conflicting conclusions, while finding no major safety problems in large studies. A 2018 analysis of 29 studies found pain reduced by either taken separately, but not by the combination. On turmeric, NCCIH says the initial evidence is positive but higher-quality evidence is needed.
+- [Three free measures that outrank it](https://jointnexa-us.vercel.app/#alongside): The CDC recommends 30 minutes of moderate activity a day and reports that a modest 5% weight loss can help reduce pain and disability. Self-management workshops are low-cost and nationwide.
+- [Seven checks before starting](https://jointnexa-us.vercel.app/#checkfirst): Shellfish allergy first, then blood thinners (bleeding risk with warfarin), diabetes (glucosamine may raise blood glucose), glaucoma, pregnancy or nursing, being under 18, and any regular medication.
+- [Who it suits](https://jointnexa-us.vercel.app/#suits): People who compare formulas, want one dose a day, already do the basics, and will give it a real trial. Not for anyone who reacts to shellfish.
+
+## Reference
+
+- [Contacting the company](https://jointnexa-us.vercel.app/#contact): Order questions and refunds through the BuyGoods order lookup; product questions through the official site's contact form. Distributor address 9169 W State St #1137, Garden City, ID 83714. No phone number published.
+- [Common questions answered](https://jointnexa-us.vercel.app/#faqs): Ten answers drawn from the label, the seller's FAQ or the public bodies cited, matching the FAQPage structured data word for word.
+- [JointNexa at a glance](https://jointnexa-us.vercel.app/#glance): Ten lines covering form, bottle, serving, formula, allergen, label claims, price range, shipping, guarantee and prescriber checks.
+- [Where the facts come from](https://jointnexa-us.vercel.app/#sources): Product facts transcribed from the official site, commercial figures recalculated, outside claims linked in place, affiliate arrangement stated.
+
+## Sources cited
+
+- [NCCIH on glucosamine and chondroitin](https://www.nccih.nih.gov/health/chondroitin): It is still uncertain whether they are helpful for knee osteoarthritis symptoms; expert evaluations have reached conflicting conclusions; no major safety problems identified in large studies; associated with increased bleeding risk in people taking warfarin; glucosamine may raise blood glucose in some people.
+- [NCCIH on turmeric](https://www.nccih.nih.gov/health/turmeric): The initial evidence is positive and higher-quality evidence is needed; highly bioavailable curcumin formulations may harm the liver; turmeric supplements may be unsafe during pregnancy.
+- [Arthritis Foundation on glucosamine and chondroitin](https://www.arthritis.org/health-wellness/treatment/complementary-therapies/supplements-and-vitamins/glucosamine-chondroitin-osteoarthritis-pain): Research is mixed on whether these supplements help but they are safe to try; no serious side effects reported in studies; it can take weeks for effectiveness to fully manifest; check with your doctor and pharmacist first.
+- [CDC arthritis key messages](https://www.cdc.gov/arthritis/about/key-messages.htm): People with arthritis should undertake 30 minutes of moderate physical activity; physical activity decreases pain, improves function and delays disability; a modest weight loss of 5% can help reduce pain and disability.
+- [FDA on dietary supplements](https://www.fda.gov/consumers/consumer-updates/fda-101-dietary-supplements): The agency does not have the authority to approve dietary supplements for safety and effectiveness before sale.
+- [FTC health products compliance guidance](https://www.ftc.gov/system/files/ftc_gov/pdf/Health-Products-Compliance-Guidance.pdf): Testimonials reporting results more dramatic than users can generally expect are likely to be deceptive; randomized controlled human clinical testing is the standard for a health claim.
+- [Official JointNexa site](https://jointnexa.com/): The source of the Supplement Facts panel, the allergen declaration, the directions, every price, the bonus guides and the guarantee terms quoted here.

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://jointnexa-us.vercel.app/</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://jointnexa-us.vercel.app/images/jointnexa-hero.webp</image:loc>
+      <image:title>A bottle of JointNexa joint support capsules</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://jointnexa-us.vercel.app/images/jointnexa-bonus-1.webp</image:loc>
+      <image:title>The Ageless Brain and Body Protocol guide</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://jointnexa-us.vercel.app/images/jointnexa-bonus-2.webp</image:loc>
+      <image:title>Forgotten Tonics From Your Kitchen guide</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://jointnexa-us.vercel.app/images/jointnexa-bonus-3.webp</image:loc>
+      <image:title>Forgotten Remedies From Your Backyard guide</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://jointnexa-us.vercel.app/images/jointnexa-2-bottles-guarantee.webp</image:loc>
+      <image:title>The two-bottle JointNexa pack</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://jointnexa-us.vercel.app/images/jointnexa-3-bottles-guarantee.webp</image:loc>
+      <image:title>The three-bottle JointNexa pack</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://jointnexa-us.vercel.app/images/jointnexa-6-bottles-guarantee.webp</image:loc>
+      <image:title>The six-bottle JointNexa pack</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://jointnexa-us.vercel.app/images/jointnexa-guarantee.webp</image:loc>
+      <image:title>The JointNexa 60-day money-back guarantee seal</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://jointnexa-us.vercel.app/images/jointnexa-review-1.webp</image:loc>
+      <image:title>A published JointNexa customer review</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://jointnexa-us.vercel.app/images/jointnexa-review-2.webp</image:loc>
+      <image:title>A second published JointNexa customer review</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://jointnexa-us.vercel.app/images/jointnexa-review-3.webp</image:loc>
+      <image:title>A third published JointNexa customer review</image:title>
+    </image:image>
+  </url>
+</urlset>

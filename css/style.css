@@ -1,0 +1,630 @@
+@charset "UTF-8";
+/* =====================================================================
+   JointNexa — jointnexa-us.vercel.app
+   Design system: "the formula card"
+
+   JointNexa's one real distinction among joint supplements is that it
+   publishes an amount beside every ingredient — no proprietary blend,
+   nothing grouped under a single weight. So the formula is the hero
+   image: the right-hand column of the fold is a tall navy card holding
+   the bottle and, beneath it, all eight ingredients with their
+   milligram amounts set on dotted leaders. The data is the picture.
+
+   Type:  Sora (display, weight axis only, 33 KB)
+          Plus Jakarta Sans (text, weight axis only, 27 KB)
+   Self-hosted, preloaded, each with a metric-matched fallback.
+   ===================================================================== */
+
+/* ---- 1. Fonts ---- */
+@font-face{
+  font-family:"Sora";
+  src:url("/fonts/sora.woff2") format("woff2-variations");
+  font-weight:100 800;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:"Jakarta";
+  src:url("/fonts/jakarta.woff2") format("woff2-variations");
+  font-weight:200 800;font-style:normal;font-display:swap;
+}
+/* Computed from each face's average lowercase advance against Arial's
+   0.5283em, so the stand-in occupies the same space and the swap costs
+   no layout shift. CLS stays 0 on a cold load. */
+@font-face{
+  font-family:"Sora fallback";
+  src:local("Arial"),local("Helvetica"),local("sans-serif");
+  size-adjust:91.49%;ascent-override:106.02%;descent-override:31.70%;
+  line-gap-override:0%;
+}
+@font-face{
+  font-family:"Jakarta fallback";
+  src:local("Arial"),local("Helvetica"),local("sans-serif");
+  size-adjust:97.78%;ascent-override:106.16%;descent-override:22.70%;
+  line-gap-override:0%;
+}
+
+/* ---- 2. Tokens ----
+   --navy is the brand's own theme-color, taken from the official site's
+   meta tag rather than invented. --gold is turmeric and --sage is the
+   botanical half of the formula; both are in the capsule, which is why
+   they are the accents.
+
+   CONTRAST, measured against EVERY ground each colour lands on. Six
+   grounds here, not two, because this page alternates light and dark.
+
+     TEXT ON LIGHT      paper  paper-2  white
+       ink              16.28   14.91   17.29
+       body              8.14    7.45    8.64
+       body-2            6.16    5.64    6.54
+       gold-d            5.16    4.73    5.48   <- tightest pair on the page
+       sage-d            5.91    5.41    6.28
+
+     TEXT ON DARK        navy   navy-2   abyss
+       white            15.59   13.02   17.78
+       gold-l           11.32    9.45   12.91
+       sage-l           10.26    8.57   11.70
+       gold              8.00    6.68    9.12
+       paper            14.68   12.26   16.74
+
+     BUTTON: navy on gold = 8.00. The CTA is dark type on turmeric,
+     which is both the strongest pair available and the colour of an
+     ingredient actually in the capsule.
+
+   Nothing in this palette fails AA, so there is no fill-only colour to
+   work around. --gold-d on --paper-2 is the one to watch at 4.73: it
+   clears the bar, but do not darken --paper-2 or lighten --gold-d
+   without re-measuring that pair. */
+:root{
+  --navy:#1a2240;
+  --navy-2:#242f55;
+  --abyss:#101631;
+  --gold:#e8b134;
+  --gold-d:#8a6208;
+  --gold-l:#f7d98a;
+  --sage:#4f9a7a;
+  --sage-d:#2f6b52;
+  --sage-l:#a8ddc6;
+  --paper:#f7f8fb;
+  --paper-2:#eceef5;
+  --white:#ffffff;
+  --ink:#131a2e;
+  --body:#424b66;
+  --body-2:#535d79;
+  --line:#dde1ec;
+  --line-2:#c6ccde;
+  --line-d:#33406b;
+
+  --display:"Sora","Sora fallback",Arial,sans-serif;
+  --text:"Jakarta","Jakarta fallback",Arial,sans-serif;
+
+  --wide:84rem;
+  --gap:clamp(3.4rem,6vw,5.6rem);
+  --round:18px;
+  --round-s:11px;
+}
+
+/* ---- 3. Reset and base ---- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--paper);color:var(--body);
+  font-family:var(--text);
+  font-size:clamp(1rem,.42vw + .92rem,1.08rem);
+  font-weight:400;line-height:1.72;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+h1,h2,h3{font-family:var(--display);color:var(--ink);
+  font-weight:600;line-height:1.14;letter-spacing:-.025em;margin:0 0 .7rem}
+h1{font-size:clamp(2.15rem,4.6vw,3.5rem);font-weight:700;
+  letter-spacing:-.04em;line-height:1.06}
+h2{font-size:clamp(1.7rem,3.2vw,2.5rem);letter-spacing:-.032em}
+h3{font-size:clamp(1.05rem,1.5vw,1.24rem);font-weight:600;letter-spacing:-.018em}
+p{margin:0 0 1rem}
+a{color:var(--sage-d);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--gold-d)}
+img{max-width:100%}
+ul,ol{margin:0 0 1rem;padding-left:1.15rem}
+li{margin:0 0 .4rem}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:3px}
+.hold{width:min(var(--wide),100% - 2.8rem);margin-inline:auto}
+.leap{position:absolute;left:-9999px}
+.leap:focus{left:1rem;top:1rem;z-index:99;background:var(--ink);color:var(--white);
+  padding:.7rem 1.1rem;border-radius:var(--round-s)}
+
+/* ---- 4. Buttons ----
+   SPECIFICITY NOTE, learned the hard way on earlier builds: `.nav a` is
+   (0,1,1) and beats `.cta` at (0,1,0), so a button inside a context that
+   styles its own links inherits that colour and vanishes. Every such
+   context carries an `a.cta` partner, placed at the END of its block.
+   Do not reorder them. */
+.cta{display:inline-block;font-family:var(--text);font-weight:700;
+  font-size:.95rem;letter-spacing:-.005em;line-height:1;
+  padding:1.02rem 1.8rem;border-radius:var(--round-s);text-decoration:none;
+  background:var(--gold);color:var(--navy);border:1px solid var(--gold);
+  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+.cta:hover{filter:brightness(1.06);color:var(--navy);
+  transform:translateY(-2px);box-shadow:0 12px 26px rgba(232,177,52,.4)}
+.cta--line{background:transparent;border:1px solid var(--line-2);color:var(--ink)}
+.cta--line:hover{background:var(--white);border-color:var(--ink);
+  color:var(--ink);filter:none}
+.cta--sm{padding:.72rem 1.25rem;font-size:.87rem}
+@media (prefers-reduced-motion:reduce){.cta,.cta:hover{transition:none;transform:none}}
+
+/* ---- 5. Ticker ---- */
+.ticker{background:var(--abyss);color:#9fa9c9}
+.ticker ul{display:flex;flex-wrap:wrap;justify-content:center;
+  gap:.35rem 1.9rem;list-style:none;margin:0;padding:.58rem 0}
+.ticker li{font-family:var(--text);font-size:.78rem;margin:0}
+/* Spaced with its own margin rather than a flex gap on the row: a gap
+   would also open up around the inline <b> inside each item. */
+.ticker li::before{content:"";display:inline-block;vertical-align:.14em;
+  width:.3rem;height:.3rem;border-radius:50%;background:var(--gold);
+  margin-right:.52rem}
+.ticker b{color:var(--white);font-weight:700}
+
+/* ---- 6. Masthead ---- */
+.top{position:sticky;top:0;z-index:40;background:rgba(247,248,251,.94);
+  border-bottom:1px solid var(--line)}
+.top .hold{display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;min-height:4.2rem}
+.sig{font-family:var(--display);font-weight:700;font-size:1.36rem;
+  letter-spacing:-.045em;color:var(--ink);text-decoration:none}
+.sig i{font-style:normal;color:var(--sage-d)}
+.nav{display:flex;align-items:center;gap:1.5rem}
+.nav a{font-family:var(--text);font-size:.92rem;font-weight:500;
+  color:var(--body);text-decoration:none}
+.nav a:hover{color:var(--ink)}
+.nav a.cta{color:var(--navy)}          /* (0,2,0) — beats .nav a */
+.nav a.cta:hover{color:var(--navy)}
+.nav-btn{display:none;font-family:var(--text);font-size:.9rem;font-weight:600;
+  color:var(--ink);background:transparent;border:1px solid var(--line-2);
+  border-radius:999px;padding:.52rem 1.05rem;cursor:pointer}
+
+/* ---- 7. Hero: the formula card ----
+   Copy on paper at the left, and at the right a tall navy card carrying
+   the bottle above the eight declared amounts. The data panel is the
+   point: this product discloses every figure, so the figures are what
+   the fold shows. */
+.frame{background:var(--paper);
+  padding:clamp(2.2rem,4.4vw,3.6rem) 0 clamp(2.4rem,4.4vw,3.6rem)}
+.frame-in{display:grid;grid-template-columns:1.06fr .94fr;
+  gap:clamp(1.8rem,4vw,3.6rem);align-items:start}
+.flag{display:inline-flex;align-items:center;gap:.6rem;
+  font-family:var(--text);font-size:.75rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--sage-d);
+  margin:0 0 1.2rem}
+.flag span{width:1.8rem;height:1px;background:var(--sage-d)}
+.frame h1{margin:0 0 1.1rem;max-width:17ch;text-wrap:balance}
+.frame h1 em{font-style:normal;color:var(--sage-d)}
+.frame .lede{font-family:var(--text);
+  font-size:clamp(1.02rem,.6vw + .9rem,1.14rem);
+  color:var(--body);max-width:48ch;margin:0 0 1.6rem;line-height:1.7}
+.frame .lede b{color:var(--ink);font-weight:700}
+.frame-go{display:flex;flex-wrap:wrap;gap:.8rem;margin:0 0 .9rem}
+.pay{font-family:var(--text);font-size:.79rem;color:var(--body-2);
+  margin:0 0 1.7rem;max-width:46ch}
+
+/* Four counts, hairline-boxed, under the hero copy. */
+.quad{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:0;
+  border:1px solid var(--line);border-radius:var(--round);
+  background:var(--white)}
+.quad > div{padding:1rem .9rem;border-left:1px solid var(--line)}
+.quad > div:first-child{border-left:0}
+.quad dt{font-family:var(--display);font-size:1.5rem;font-weight:700;
+  color:var(--navy);letter-spacing:-.045em;line-height:1;margin:0 0 .25rem}
+.quad dd{font-family:var(--text);font-size:.74rem;color:var(--body-2);
+  margin:0;line-height:1.45}
+
+/* The card itself. */
+.card-formula{background:linear-gradient(170deg,var(--navy),var(--abyss));
+  border-radius:var(--round);padding:clamp(1.4rem,2.6vw,2rem);
+  box-shadow:0 24px 54px rgba(16,22,49,.26)}
+.card-formula > figure{margin:0 0 1.2rem}
+.card-formula img{display:block;width:auto;max-width:100%;height:auto;
+  max-height:min(32vh,17rem);margin-inline:auto}
+.card-head{display:flex;align-items:baseline;justify-content:space-between;
+  gap:.8rem;padding-bottom:.7rem;border-bottom:1px solid var(--line-d)}
+.card-head p{font-family:var(--display);font-size:1rem;font-weight:600;
+  color:var(--white);margin:0;letter-spacing:-.02em}
+.card-head span{font-family:var(--text);font-size:.72rem;color:var(--gold-l);
+  font-weight:600;letter-spacing:.04em;white-space:nowrap}
+
+/* Dotted leaders. The leader is a flex item with flex:1, so it absorbs
+   whatever space the name and the amount leave; margin is pinned to 0 so
+   no inherited auto-margin rule can collapse it to zero width. */
+.dose{list-style:none;padding:0;margin:.85rem 0 0}
+.dose li{display:flex;align-items:baseline;gap:.45rem;margin:0 0 .56rem;
+  font-family:var(--text);font-size:.87rem;line-height:1.4}
+.dose .nm{color:#d3daf0;margin:0;flex:0 1 auto}
+.dose .ld{flex:1 1 auto;margin:0;min-width:1.2rem;
+  border-bottom:1px dotted var(--line-d);transform:translateY(-.22em)}
+.dose .mg{color:var(--white);font-weight:700;margin:0;flex:none;
+  font-variant-numeric:tabular-nums}
+.card-note{font-family:var(--text);font-size:.73rem;color:#9fa9c9;
+  margin:1rem 0 0;line-height:1.5}
+
+.sure{list-style:none;padding:0;margin:1.9rem 0 0;display:flex;
+  flex-wrap:wrap;gap:.5rem .6rem;justify-content:center}
+.sure li{margin:0;font-family:var(--text);font-size:.77rem;font-weight:500;
+  color:var(--body);background:var(--white);border:1px solid var(--line);
+  border-radius:999px;padding:.4rem .95rem}
+.fine{font-family:var(--text);font-size:.79rem;color:var(--body-2);
+  text-align:center;margin:1.1rem 0 0}
+
+/* ---- 8. Hero motion ----
+   One orchestrated entrance on transform and opacity only, so it runs on
+   the compositor and adds nothing to Total Blocking Time. */
+@keyframes riseUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.frame-copy > *{opacity:0;animation:riseUp .7s cubic-bezier(.22,.8,.3,1) forwards}
+.frame-copy > .flag{animation-delay:.04s}
+.frame-copy > h1{animation-delay:.1s}
+.frame-copy > .lede{animation-delay:.18s}
+.frame-copy > .frame-go{animation-delay:.26s}
+.frame-copy > .pay{animation-delay:.32s}
+.frame-copy > .quad{animation-delay:.38s}
+.card-formula{opacity:0;animation:cardIn .82s cubic-bezier(.22,.8,.3,1) .14s forwards}
+.card-formula img{animation:bob 9s ease-in-out 1.5s infinite}
+.frame .sure,.frame .fine{opacity:0;
+  animation:riseUp .7s cubic-bezier(.22,.8,.3,1) .46s forwards}
+@media (prefers-reduced-motion:reduce){
+  .frame-copy > *,.card-formula,.card-formula img,.frame .sure,.frame .fine{
+    animation:none;opacity:1;transform:none}
+  *,*::before,*::after{animation-iteration-count:1!important;
+    animation-duration:.01ms!important;transition-duration:.01ms!important;
+    scroll-behavior:auto!important}
+}
+
+/* ---- 9. Bands ---- */
+.band{padding:var(--gap) 0;scroll-margin-top:5rem;text-align:center}
+.band--white{background:var(--white)}
+.band--tint{background:var(--paper-2)}
+.band--navy{background:var(--navy);color:#c6cee6}
+.band--abyss{background:var(--abyss);color:#c6cee6}
+.band--navy h2,.band--navy h3,.band--abyss h2,.band--abyss h3{color:var(--white)}
+.band--navy .opener,.band--abyss .opener{color:#a9b4d4}
+.band--navy a,.band--abyss a{color:var(--gold-l)}
+.band--navy a.cta,.band--abyss a.cta{color:var(--navy)}   /* (0,2,0) partners */
+.band--navy a.cta:hover,.band--abyss a.cta:hover{color:var(--navy)}
+.tag{display:inline-flex;align-items:center;gap:.6rem;
+  font-family:var(--text);font-size:.73rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--sage-d);
+  margin:0 0 .9rem}
+.tag::before,.tag::after{content:"";width:1.8rem;height:1px;background:var(--sage-d)}
+.band--navy .tag,.band--abyss .tag{color:var(--sage-l)}
+.band--navy .tag::before,.band--navy .tag::after,
+.band--abyss .tag::before,.band--abyss .tag::after{background:var(--sage-l)}
+.band h2{max-width:30ch;margin-inline:auto}
+.opener{font-family:var(--text);font-size:clamp(1rem,.5vw + .9rem,1.1rem);
+  color:var(--body-2);max-width:62ch;margin:0 auto 2.2rem}
+
+/* ---- 10. Two-column prose ----
+   Multi-column rather than a two-cell grid: columns balance themselves,
+   so a three-paragraph section and a five-paragraph one both look
+   deliberate without hand-splitting the markup. */
+.duo{columns:2;column-gap:clamp(2.2rem,4vw,3.6rem);
+  column-rule:1px solid var(--line);max-width:72rem;margin-inline:auto;
+  text-align:left}
+.band--navy .duo,.band--abyss .duo{column-rule-color:var(--line-d)}
+.band .duo p{max-width:none;margin-left:0;margin-right:0;break-inside:avoid}
+.band .duo p:last-child{margin-bottom:0}
+.band .aside{font-family:var(--text);font-size:.87rem;color:var(--body-2);
+  max-width:58rem;margin:2.2rem auto 0;line-height:1.64;text-align:left;
+  padding-left:1.15rem;border-left:3px solid var(--sage)}
+.band--navy .aside,.band--abyss .aside{color:#a9b4d4;border-left-color:var(--sage-l)}
+
+/* ---- 11. Copy beside a shot ---- */
+.show{display:grid;grid-template-columns:1fr .76fr;gap:clamp(1.6rem,3.5vw,3.4rem);
+  align-items:center;max-width:76rem;margin-inline:auto}
+.show--flip .show-copy{order:2}
+.show--flip .show-shot{order:1}
+.show-copy > p{max-width:none;margin-left:0;margin-right:0;text-align:left}
+.show-copy > p + p{margin-top:1rem}
+.show-shot{margin:0}
+.show-shot img{display:block;width:auto;max-width:100%;height:auto;max-height:20rem;
+  margin-inline:auto;border-radius:var(--round);background:var(--white)}
+.show-shot figcaption{font-family:var(--text);font-size:.8rem;color:var(--body-2);
+  margin-top:.8rem;text-align:left;line-height:1.5;max-width:30rem}
+.band--navy .show-shot figcaption,.band--abyss .show-shot figcaption{color:#a9b4d4}
+
+/* ---- 12. Cards ---- */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;
+  max-width:74rem;margin-inline:auto}
+.grid--2{grid-template-columns:repeat(2,1fr);max-width:60rem}
+.grid--4{grid-template-columns:repeat(4,1fr);max-width:78rem}
+.card{background:var(--white);border:1px solid var(--line);
+  border-radius:var(--round);padding:1.6rem 1.5rem;text-align:left}
+.band--white .card{background:var(--paper)}
+.band--navy .card,.band--abyss .card{background:rgba(255,255,255,.06);
+  border-color:var(--line-d)}
+.card .sub{display:block;font-family:var(--text);font-size:.69rem;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--sage-d);margin:0 0 .6rem}
+.band--navy .card .sub,.band--abyss .card .sub{color:var(--sage-l)}
+.card .amt{display:block;font-family:var(--display);font-size:1.05rem;
+  font-weight:700;color:var(--gold-d);letter-spacing:-.02em;margin:0 0 .45rem}
+.band--navy .card .amt,.band--abyss .card .amt{color:var(--gold-l)}
+.card h3{margin:0 0 .5rem}
+.card p{margin:0;font-size:.94rem;line-height:1.66}
+
+/* ---- 13. Definition rows ---- */
+.rows{max-width:72rem;margin:0 auto;text-align:left}
+.rows > div{display:grid;grid-template-columns:15rem 1fr;gap:1.4rem;
+  padding:1.25rem 0;border-top:1px solid var(--line)}
+.rows > div:first-child{border-top:0}
+.band--navy .rows > div,.band--abyss .rows > div{border-top-color:var(--line-d)}
+.rows .k,.rows h3{font-family:var(--display);font-weight:600;color:var(--ink);
+  font-size:1rem;margin:0;line-height:1.34;letter-spacing:-.02em}
+.band--navy .rows .k,.band--navy .rows h3,
+.band--abyss .rows .k,.band--abyss .rows h3{color:var(--white)}
+.rows .v{margin:0;font-size:.95rem;line-height:1.68;max-width:60ch}
+
+/* ---- 14. Question / answer pairs ---- */
+.pairs{display:grid;gap:1.2rem;max-width:76rem;margin-inline:auto}
+.pair{display:grid;grid-template-columns:15rem 1fr;gap:0;
+  background:var(--white);border:1px solid var(--line);
+  border-radius:var(--round);overflow:hidden;text-align:left}
+.band--navy .pair,.band--abyss .pair{background:rgba(255,255,255,.055);
+  border-color:var(--line-d)}
+.band--white .pair{background:var(--paper)}
+.pair-says{padding:1.5rem;border-right:1px solid var(--line);background:var(--paper-2)}
+.band--navy .pair-says,.band--abyss .pair-says{border-right-color:var(--line-d);
+  background:rgba(0,0,0,.22)}
+.pair-shows{padding:1.5rem}
+.pair-k{display:block;font-family:var(--text);font-size:.67rem;font-weight:700;
+  letter-spacing:.14em;color:var(--sage-d);margin:0 0 .55rem}
+.band--navy .pair-k,.band--abyss .pair-k{color:var(--sage-l)}
+.pair-says p{margin:0;font-size:.94rem;line-height:1.62;color:var(--body)}
+.band--navy .pair-says p,.band--abyss .pair-says p{color:#c6cee6}
+.pair-shows h3{margin:0 0 .5rem}
+.pair-shows p{margin:0 0 .7rem;font-size:.94rem;line-height:1.68}
+.pair-shows p:last-child{margin-bottom:0}
+
+/* ---- 15. Price table ---- */
+.stack{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;
+  max-width:68rem;margin:0 auto 2.2rem;align-items:stretch}
+.tier{position:relative;background:var(--white);border:1px solid var(--line);
+  border-radius:var(--round);padding:1.7rem 1.4rem 1.5rem;
+  display:flex;flex-direction:column;gap:.45rem;text-align:center}
+.tier img{width:auto;max-width:100%;height:auto;max-height:13rem;margin:0 auto .35rem}
+.tier .qty{font-family:var(--display);font-size:1.12rem;font-weight:600;
+  color:var(--ink);margin:0;letter-spacing:-.025em}
+.tier .per{font-family:var(--display);font-weight:700;color:var(--navy);
+  font-size:clamp(2.2rem,3.5vw,2.85rem);line-height:1;margin:.2rem 0 .3rem;
+  letter-spacing:-.05em}
+.tier .per small{display:block;font-family:var(--text);font-size:.67rem;
+  font-weight:700;letter-spacing:.14em;color:var(--body-2);margin-top:.4rem}
+.tier .sum{margin:0;font-size:.93rem;max-width:none}
+.tier .was{text-decoration:line-through;color:var(--body-2)}
+.tier .keep{font-family:var(--text);font-weight:700;color:var(--gold-d);
+  font-size:.92rem;margin:0}
+.tier .ship{font-family:var(--text);font-size:.78rem;color:var(--body-2);margin:0}
+.tier .cta{margin-top:auto}
+.tier--best{border:2px solid var(--navy);box-shadow:0 18px 42px rgba(16,22,49,.15)}
+.crown{position:absolute;top:0;left:50%;transform:translate(-50%,-50%);
+  background:var(--navy);color:var(--gold-l);font-family:var(--text);
+  font-size:.65rem;font-weight:700;letter-spacing:.13em;
+  padding:.34rem .9rem;border-radius:999px;white-space:nowrap}
+
+/* ---- 16. Supplement Facts panel ----
+   Real text, never a photograph of a label: searchable, reflowable,
+   readable by a screen reader, copyable straight into a search box. */
+.facts{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(1.4rem,3vw,2.8rem);
+  align-items:start;max-width:76rem;margin:2.2rem auto 0}
+.facts-panel{background:var(--white);border:2px solid var(--ink);
+  border-radius:4px;padding:1.1rem 1.2rem 1rem}
+.facts-h{font-family:var(--display);font-size:clamp(1.45rem,2.5vw,1.9rem);
+  font-weight:700;color:var(--ink);margin:0;line-height:1.04;
+  letter-spacing:-.045em;text-align:left}
+.facts-serve{font-family:var(--text);font-size:.85rem;color:var(--ink);
+  margin:.5rem 0 .55rem;max-width:none;line-height:1.5;text-align:left}
+.facts-serve b{font-weight:700}
+.facts table{width:100%;border-collapse:collapse;
+  border-top:9px solid var(--ink);border-bottom:1px solid var(--ink)}
+.facts thead th{font-family:var(--text);font-size:.71rem;font-weight:700;
+  color:var(--body);text-align:right;padding:.3rem 0;
+  border-bottom:1px solid var(--ink)}
+.facts thead th:first-child{text-align:left}
+.facts tbody th{text-align:left;font-family:var(--text);font-size:.87rem;
+  font-weight:600;color:var(--ink);padding:.48rem .6rem .48rem 0;
+  border-bottom:1px solid var(--line);vertical-align:top}
+.facts tbody th span{display:block;font-weight:400;font-size:.78rem;
+  color:var(--body-2);line-height:1.45;margin-top:.14rem}
+.facts tbody td{text-align:right;font-family:var(--text);font-size:.87rem;
+  font-weight:700;color:var(--ink);padding:.48rem 0 .48rem .5rem;
+  border-bottom:1px solid var(--line);vertical-align:top;white-space:nowrap;
+  font-variant-numeric:tabular-nums}
+.facts tbody td:last-child{width:2.4rem;font-weight:400}
+.facts-f{font-family:var(--text);font-size:.74rem;color:var(--body-2);
+  margin:.5rem 0 0;max-width:none;line-height:1.5;text-align:left}
+.facts-o{font-family:var(--text);font-size:.8rem;color:var(--body);
+  margin:.7rem 0 0;max-width:none;line-height:1.55;text-align:left}
+/* The allergen line is the single most safety-relevant sentence on this
+   page, so it is given a box of its own rather than folded into the
+   other-ingredients paragraph where a skimming reader would miss it. */
+.facts-allergen{font-family:var(--text);font-size:.84rem;font-weight:700;
+  color:var(--ink);background:var(--gold-l);border-radius:var(--round-s);
+  padding:.7rem .9rem;margin:.8rem 0 0;max-width:none;line-height:1.5;
+  text-align:left}
+.facts-side h3{margin:0 0 .9rem;text-align:left}
+.band--navy .facts-side h3,.band--abyss .facts-side h3{color:var(--white)}
+/* Hanging indent by absolute positioning, NOT a two-column grid: each
+   item mixes a <b> lead-in with a trailing text node, and three grid
+   children in two columns pushes that text onto row 2 column 1, one word
+   per line. */
+.howto{list-style:none;counter-reset:ht;padding:0;margin:0}
+.howto li{counter-increment:ht;position:relative;padding-left:2.15rem;
+  font-family:var(--text);font-size:.93rem;color:var(--body);
+  line-height:1.6;margin:0 0 .78rem;text-align:left}
+.band--navy .howto li,.band--abyss .howto li{color:#c6cee6}
+.howto li::before{content:counter(ht);position:absolute;left:0;top:.1rem;
+  font-family:var(--display);font-weight:700;font-size:.78rem;
+  color:var(--white);background:var(--sage-d);
+  width:1.35rem;height:1.35rem;border-radius:50%;display:grid;place-items:center}
+.howto li b{color:var(--ink);font-weight:700}
+.band--navy .howto li b,.band--abyss .howto li b{color:var(--white)}
+.facts-side .note{font-family:var(--text);font-size:.85rem;color:var(--body-2);
+  margin:1.1rem 0 0;max-width:none;padding-left:1rem;
+  border-left:3px solid var(--line-2);line-height:1.6;text-align:left}
+.band--navy .facts-side .note,.band--abyss .facts-side .note{color:#a9b4d4;
+  border-left-color:var(--line-d)}
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---- 17. Numbered plan ---- */
+.plan{list-style:none;counter-reset:pl;padding:0;margin:0 auto;
+  max-width:62rem;text-align:left}
+.plan li{counter-increment:pl;display:grid;grid-template-columns:3rem 1fr;
+  gap:1.2rem;padding:1.3rem 0;border-top:1px solid var(--line);align-items:start}
+.plan li:first-child{border-top:0}
+.band--navy .plan li,.band--abyss .plan li{border-top-color:var(--line-d)}
+.plan .n{font-family:var(--display);font-weight:700;font-size:1.5rem;
+  color:var(--sage-d);line-height:1;letter-spacing:-.04em}
+.band--navy .plan .n,.band--abyss .plan .n{color:var(--sage-l)}
+.plan h3{margin:0 0 .35rem}
+.plan p{margin:0;font-size:.95rem;line-height:1.68;max-width:62ch}
+
+/* ---- 18. Bonus guides ---- */
+.gifts{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;
+  max-width:70rem;margin:0 auto;align-items:start}
+.gift{background:var(--white);border:1px solid var(--line);
+  border-radius:var(--round);padding:1.4rem;text-align:left;
+  display:flex;flex-direction:column;gap:.6rem}
+.band--navy .gift,.band--abyss .gift{background:rgba(255,255,255,.06);
+  border-color:var(--line-d)}
+.gift img{display:block;width:auto;max-width:100%;height:auto;max-height:13rem;
+  margin:0 auto .3rem}
+.gift .worth{font-family:var(--text);font-size:.72rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--gold-d);margin:0}
+.band--navy .gift .worth,.band--abyss .gift .worth{color:var(--gold-l)}
+.gift h3{margin:0}
+.gift p{margin:0;font-size:.92rem;line-height:1.62}
+
+/* ---- 19. Reviews ---- */
+.voices{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;
+  max-width:66rem;margin:0 auto;align-items:start}
+.voices figure{margin:0}
+/* Sizes by whichever edge binds first. width:100% with object-fit:contain
+   clamps a tall screenshot to the max-height and then letterboxes it. */
+.voices img{display:block;width:auto;max-width:100%;height:auto;max-height:28rem;
+  margin-inline:auto;border:1px solid var(--line);border-radius:var(--round);
+  background:var(--white)}
+.voices figcaption{font-family:var(--text);font-size:.8rem;color:var(--body-2);
+  margin-top:.7rem;text-align:left;line-height:1.5}
+.band--navy .voices figcaption,.band--abyss .voices figcaption{color:#a9b4d4}
+
+/* ---- 20. Guarantee seal ---- */
+.seal{max-width:44rem;margin:2.2rem auto 0}
+.seal img{width:auto;max-width:100%;height:auto;max-height:22rem;margin-inline:auto}
+.seal figcaption{font-family:var(--text);font-size:.8rem;color:var(--body-2);
+  margin-top:.8rem;text-align:center}
+.band--navy .seal figcaption,.band--abyss .seal figcaption{color:#a9b4d4}
+
+/* ---- 21. Mid-section CTA ---- */
+.ask{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+  gap:1.1rem;max-width:60rem;margin:2.4rem auto 0;padding-top:1.8rem;
+  border-top:1px solid var(--line)}
+.band--navy .ask,.band--abyss .ask{border-top-color:var(--line-d)}
+.ask p{margin:0;font-family:var(--text);font-weight:600;color:var(--ink);font-size:1rem}
+.band--navy .ask p,.band--abyss .ask p{color:var(--white)}
+
+/* ---- 22. Section map ---- */
+.map{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;
+  max-width:62rem;margin:2.4rem auto 0}
+.map a{font-family:var(--text);font-size:.8rem;color:var(--body);
+  text-decoration:none;background:var(--white);border:1px solid var(--line);
+  border-radius:999px;padding:.38rem .9rem}
+.map a:hover{border-color:var(--ink);color:var(--ink)}
+
+/* ---- 23. Footer ---- */
+.foot{background:var(--abyss);color:#9fa9c9;padding:var(--gap) 0 2.4rem}
+.foot .hold{display:grid;grid-template-columns:1.8fr 1fr 1fr;gap:2.4rem}
+.foot .sig{color:var(--white);display:inline-block;margin-bottom:.8rem}
+.foot .sig i{color:var(--sage-l)}
+.foot p{font-size:.88rem;line-height:1.68;margin:0}
+.foot h2{font-family:var(--text);font-size:.73rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--white);margin:0 0 .85rem}
+.foot ul{list-style:none;padding:0;margin:0}
+.foot li{margin:0 0 .5rem}
+.foot a{color:#9fa9c9;font-size:.88rem;text-decoration:none}
+.foot a:hover{color:var(--white);text-decoration:underline}
+.foot .small{grid-column:1/-1;border-top:1px solid var(--line-d);
+  padding-top:1.7rem;margin-top:.6rem}
+.foot .small p{font-size:.8rem;line-height:1.66;margin:0 0 .9rem;color:#8e99bb}
+.foot .small strong{color:var(--white)}
+.foot .small a{font-size:.8rem;text-decoration:underline}
+
+/* ---- 24. Sticky order bar ---- */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:50;
+  background:var(--navy);border-top:1px solid var(--line-d);
+  transform:translateY(110%);transition:transform .32s cubic-bezier(.22,.8,.3,1)}
+.dock.on{transform:none}
+.dock .hold{display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;padding:.82rem 0}
+.dock p{margin:0;font-family:var(--text);font-size:.86rem;color:#a9b4d4}
+.dock b{display:block;color:var(--white);font-weight:700;font-size:.96rem}
+@media (prefers-reduced-motion:reduce){.dock{transition:none}}
+
+/* ---- 25. Responsive ---- */
+@media (max-width:1080px){
+  .grid,.grid--4{grid-template-columns:repeat(2,1fr);max-width:48rem}
+  .stack{grid-template-columns:1fr;max-width:30rem}
+  .gifts{grid-template-columns:1fr;max-width:30rem}
+  .rows > div{grid-template-columns:13rem 1fr}
+  .pair{grid-template-columns:12.5rem 1fr}
+  .facts{grid-template-columns:1fr;max-width:40rem;gap:1.8rem}
+  .frame-in{grid-template-columns:1fr;gap:2.2rem;max-width:40rem;margin-inline:auto}
+  .frame h1,.frame .lede{max-width:none}
+}
+@media (max-width:860px){
+  .nav-btn{display:inline-block}
+  #nav-panel{display:none;position:absolute;left:0;right:0;top:100%;
+    background:var(--paper);border-bottom:1px solid var(--line);
+    padding:.8rem 1.4rem 1.2rem}
+  #nav-panel.open{display:block}
+  .nav{flex-direction:column;align-items:stretch;gap:0}
+  .nav a{padding:.7rem 0;border-bottom:1px solid var(--line);font-size:.96rem}
+  .nav a:last-child{border-bottom:0}
+  .nav .cta{margin-top:.85rem;text-align:center}
+  .top .hold{position:relative}
+
+  .quad{grid-template-columns:repeat(2,1fr)}
+  .quad > div:nth-child(odd){border-left:0}
+  .quad > div:nth-child(n+3){border-top:1px solid var(--line)}
+  .card-formula img{max-height:14rem}
+  .grid,.grid--2,.grid--4{grid-template-columns:1fr;max-width:32rem}
+  .rows > div{grid-template-columns:1fr;gap:.45rem;padding:1.15rem 0}
+  .rows .v{max-width:none}
+  .pair{grid-template-columns:1fr}
+  .pair-says{border-right:0;border-bottom:1px solid var(--line)}
+  .band--navy .pair-says,.band--abyss .pair-says{border-bottom-color:var(--line-d)}
+  .duo{columns:1;column-rule:0}
+  /* Copy before picture on a phone, whichever way the desktop order ran. */
+  .show{grid-template-columns:1fr;gap:1.6rem;max-width:34rem}
+  .show--flip .show-copy{order:1}
+  .show--flip .show-shot{order:2}
+  .show-shot img{max-height:16rem}
+  .show-shot figcaption{text-align:center;max-width:none}
+  .voices{grid-template-columns:1fr;max-width:26rem;gap:1.7rem}
+  .facts-panel{padding:1rem .9rem .9rem}
+  .facts tbody th,.facts tbody td{font-size:.84rem}
+  .foot .hold{grid-template-columns:1fr;gap:1.9rem}
+  .dock .hold{justify-content:center}
+  .dock p{display:none}
+}
+@media (max-width:640px){
+  /* Four facts one per line would eat a third of a phone's first screen,
+     so the ticker pairs them into two rows instead. */
+  .ticker ul{display:grid;grid-template-columns:1fr 1fr;gap:.3rem .9rem}
+  .ticker li{font-size:.72rem;line-height:1.36}
+  .plan li{grid-template-columns:2.2rem 1fr;gap:.9rem}
+}
+@media (max-width:460px){
+  .hold{width:min(var(--wide),100% - 1.7rem)}
+  .frame-go{flex-direction:column;align-items:stretch}
+  .frame-go .cta{text-align:center}
+  .quad{grid-template-columns:1fr}
+  .quad > div{border-left:0;border-top:1px solid var(--line)}
+  .quad > div:first-child{border-top:0}
+  .dose li{font-size:.83rem}
+}
